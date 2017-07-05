@@ -1,40 +1,29 @@
-import React, { Component } from 'react';
-import './App.css';
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import "./App.css";
+import PropTypes from "prop-types";
+import { Router, Route, IndexRoute, Link, hashHistory } from "react-router";
+import PostsDetails from "./components/PostsDetails";
 
-import PostList from './components/PostsList'
-import PostForm from './components/PostForm'
+import PostPage from "./components/PostPage";
+import Home from "./Home";
+
+import PostForm from "./components/PostForm";
+import Layout from "./Layout.js";
 
 class App extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
-      posts:[],
-        searchValue:''
-    }
-    this.addPost = this.addPost.bind(this)
-  }
-  addPost = post =>{
-    const d = new Date().toDateString()
-    this.setState({posts: [...this.state.posts,{...post,timestamp:d}]})
-  }
-  removePostFromPosts = e => {
-      this.setState({posts: this.state.posts.filter((el)=> el.id != e.target.id )})
-    }
-  search = (e)=>{
-    this.setState({
-      searchValue: e.target.value
-    })
-  }
   render() {
     return (
       <div className="App">
-
-        <input type="text" onChange={this.search} placeholder="search" style={{float:"left"}}/>
-       
-        <PostForm onSubmit={this.addPost}/>
-        <PostList valueToFilter={this.state.searchValue} posts={this.state.posts} removeFromList={this.removePostFromPosts}/>
+        <Router history={hashHistory}>
+          <Route path="/" component={Layout}>
+            <Layout>
+              <IndexRoute component={Home} />
+              <Route path="posts" component={PostPage} />
+              <Route path="posts-details" component={PostsDetails} />
+              <Route path="posts-form" component={PostForm} />
+            </Layout>
+          </Route>
+        </Router>
       </div>
     );
   }
