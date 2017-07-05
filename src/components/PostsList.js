@@ -7,9 +7,8 @@ export default class PostList extends Component{
     filterMap(){
         const posts = this.props.posts
         if (this.props.valueToFilter.length > 0) {
-            return posts.valueToFilter((el) => el.title.includes(this.props.valueToFilter))
+            return posts.filter((el) => el.title.includes(this.props.valueToFilter))
         }
-
         return posts
     }
      
