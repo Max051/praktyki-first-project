@@ -1,12 +1,6 @@
-import React, {
-  Component
-} from "react";
-import {
-  connect
-} from "react-redux";
-import {
-  withRouter
-} from "react-router";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import axios from "axios";
 
 class LoginForm extends Component {
@@ -57,45 +51,30 @@ class LoginForm extends Component {
     });
   };
   render() {
-    return ( <
-      div >
-      <
-      form className = "form-group" >
-      <
-      input className = "form-control"
-      type = "email"
-      placeholder = "Email"
-      onChange = {
-        this.login
-      }
-      value = {
-        this.state.login
-      }
-      /> <
-      input className = "form-control"
-      placeholder = "Password"
-      type = "password"
-      onChange = {
-        this.password
-      }
-      value = {
-        this.state.password
-      }
-      /> <
-      button onClick = {
-        this.onSubmit
-      } > Submit < /button> < /
-      form > {
-        this.props.session.login ?
-        <
-        button onClick = {
-          this.onLogout
-        } > Logut < /button> :
-        false
-      } {
-        this.state.error ? "Server Error" : false
-      } <
-      /div>
+    return (
+      <div>
+        <form className="form-group">
+          <input
+            className="form-control"
+            type="email"
+            placeholder="Email"
+            onChange={this.login}
+            value={this.state.login}
+          />{" "}
+          <input
+            className="form-control"
+            placeholder="Password"
+            type="password"
+            onChange={this.password}
+            value={this.state.password}
+          />{" "}
+          <button onClick={this.onSubmit}> Submit </button>{" "}
+        </form>{" "}
+        {this.props.session.login
+          ? <button onClick={this.onLogout}> Logut </button>
+          : false}{" "}
+        {this.state.error ? "Server Error" : false}{" "}
+      </div>
     );
   }
 }
