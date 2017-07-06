@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-redux";
 import Button from "../user-interface/Button";
 
-export default class PostForm extends Component {
+//this.props.router.push("posts")
+class PostForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       title: "",
       content: "",
@@ -29,12 +31,21 @@ export default class PostForm extends Component {
       content: this.state.content,
       id: this.state.id
     });
+
+    //   this.props.onNewPost();
+  };
+  addPOst = e => {
+    e.preventDefault();
     this.setState({
       id: this.state.id + 1
     });
-    this.props.onNewPost();
+    this.props.onAddpost({
+      title: this.state.title,
+      content: this.state.content,
+      id: this.state.id
+    });
+    //   this.props.onNewPost();
   };
-
   render() {
     return (
       <div className="container">
@@ -68,7 +79,7 @@ export default class PostForm extends Component {
           <Button
             btnStyle={"success"}
             id={this.state.id}
-            onClick={this.onSubmit}
+            onClick={this.addPOst}
             label={"add Post"}
           />
         </form>
@@ -76,3 +87,11 @@ export default class PostForm extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    posts: state.posts.postCollection
+  };
+};
+
+export default connect(mapStateToProps)(PostForm);

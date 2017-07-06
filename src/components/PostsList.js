@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import Post from "./Post";
 export default class PostList extends Component {
-  removePost = () => {
-    this.props.removeFromList();
-  };
   filterMap() {
     const posts = this.props.posts;
+    console.log(posts);
     if (this.props.valueToFilter.length > 0) {
       return posts.filter(el => el.title.includes(this.props.valueToFilter));
     }

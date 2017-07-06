@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 class Button extends Component {
   render() {
-    console.log(this.props.onClick);
     return (
       <button
         id={this.props.id}

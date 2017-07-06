@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
+import { connect } from "react-redux";
+
 class Layout extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class Layout extends Component {
               <Link to="posts">
                 Posts{" "}
                 <span className="label label-primary">
-                  {this.state.postsNumber}
+                  {this.props.posts.length}
                 </span>
               </Link>
             </li>
@@ -36,8 +38,18 @@ class Layout extends Component {
             <li>
               <Link to="posts-form">Post Form</Link>
             </li>
+            <li>
+              <Link to="login">Login</Link>
+            </li>
+            <li>
+              {" "}{" "}
+              {this.props.session.login
+                ? this.props.session.login
+                : "Please Log In"}
+            </li>
           </ul>
         </nav>
+
         <div className="container">
           {console.log(this.props.children)}
           {React.Children.map(this.props.children, c =>
@@ -48,5 +60,11 @@ class Layout extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    session: state.session,
+    posts: state.posts.postCollection
+  };
+};
 
-export default Layout;
+export default connect(mapStateToProps)(Layout);

@@ -4,10 +4,16 @@ import AlertButton from "../user-interface/AlertButton";
 import styled from "styled-components";
 
 export default class Post extends Component {
+  onRemove = () => this.props.removePost(this.props.post.id);
   render() {
     return (
       <StyledPost>
-        <StyledButton btnStyle="danger" id={this.props.post.id} label={"x"} />
+        <StyledButton
+          onClick={this.onRemove}
+          btnStyle="danger"
+          id={this.props.post.id}
+          label={"x"}
+        />
         <h2 style={{ marginTop: "-10px" }}>
           {this.props.post.title}
         </h2>
@@ -35,7 +41,7 @@ const StyledPost = styled.div`
   flex-direction: column;
 `;
 
-const StyledButton = styled(AlertButton)`
+const StyledButton = styled(Button)`
             background-color: inherit;
             color: red;
             border: none;

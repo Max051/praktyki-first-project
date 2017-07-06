@@ -9,6 +9,8 @@ import Home from "./Home";
 
 import PostForm from "./components/PostForm";
 import Layout from "./Layout.js";
+import AddPostsPage from "./components/AddPostPage";
+import loginForm from "./components/LoginForm";
 
 class App extends Component {
   render() {
@@ -20,7 +22,8 @@ class App extends Component {
               <IndexRoute component={Home} />
               <Route path="posts" component={PostPage} />
               <Route path="posts-details" component={PostsDetails} />
-              <Route path="posts-form" component={PostForm} />
+              <Route path="posts-form" component={AddPostsPage} />
+              <Route path="login" component={loginForm} />
             </Layout>
           </Route>
         </Router>
