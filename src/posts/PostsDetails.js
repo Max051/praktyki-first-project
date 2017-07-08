@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import Post from "./Post";
+import { connect } from "react-redux";
 
 class PostsDetails extends Component {
   render() {
-    return (
-      <div>
-        {console.log(this.props.countPosts)}
-        Post Details
-      </div>
-    );
+    return <Post post={this.props.postToShow} />;
   }
 }
-export default PostsDetails;
+const mapStateToProps = state => {
+  return {
+    postToShow: state.posts.postToShow
+  };
+};
+export default connect(mapStateToProps)(PostsDetails);

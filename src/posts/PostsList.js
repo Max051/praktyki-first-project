@@ -17,7 +17,12 @@ export default class PostList extends Component {
         style={{ paddingLeft: "0px", marginTop: "40px" }}
       >
         {this.filterMap().map((post, i) =>
-          <Post removePost={this.props.removeFromList} key={i} post={post} />
+          <Post
+            showPost={this.props.showPost}
+            removePost={this.props.removeFromList}
+            key={i}
+            post={post}
+          />
         )}
       </div>
     );

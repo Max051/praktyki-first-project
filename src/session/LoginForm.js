@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import axios from "axios";
+import { bindActionCreators } from "redux";
+
+import { Login, Logout } from "../actions/sessioActions";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -26,29 +29,25 @@ class LoginForm extends Component {
     e.preventDefault();
 
     axios
-      .post("http://192.168.10.127:3001/sign-in", {
-        email: this.state.login,
-        password: this.state.password
+      .post("http://praktyki-react.herokuapp.com/api/v1/sessions", {
+        user: {
+          email: this.state.login,
+          password: this.state.password
+        }
       })
       .then(respone => {
-        console.log(respone);
+        this.props.Login(respone);
+        this.props.router.push("posts");
       })
+      //   this.props.router.push("posts");
       .catch(error => {
         this.setState({
           error: true
         });
       });
-
-    //    this.props.dispatch({
-    //     type: "Login",
-    //    data: { login: this.state.login, password: this.state.password }
-    //  });
-    //  this.props.router.push("posts");
   };
   onLogout = () => {
-    this.props.dispatch({
-      type: "Logout"
-    });
+    this.props.Logout();
   };
   render() {
     return (
@@ -83,4 +82,7 @@ const mapStateToProps = state => {
     session: state.session
   };
 };
-export default connect(mapStateToProps)(LoginForm);
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators({ Login: Login, Logout: Logout }, dispatch);
+};
+export default connect(mapStateToProps, matchDispatchToProps)(LoginForm);

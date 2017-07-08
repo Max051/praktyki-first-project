@@ -1,17 +1,13 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { decrement, increment } from "./actions/counterAction.js";
 import { connect } from "react-redux";
 class Home extends Component {
-  decrement = () => {
-    return this.props.dispatch({ type: "DECREMENT" });
-  };
-  increment = () => {
-    return this.props.dispatch({ type: "INCREMENT" });
-  };
   render() {
     return (
       <div>
-        <button onClick={this.decrement}>decrement</button>
-        <button onClick={this.increment}>increment</button>
+        <button onClick={this.props.decrement}>decrement</button>
+        <button onClick={this.props.increment}>increment</button>
         Home Counter:{this.props.counter}
       </div>
     );
@@ -22,5 +18,11 @@ const mapStateToProps = state => {
     counter: state.counter
   };
 };
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators(
+    { increment: increment, decrement: decrement },
+    dispatch
+  );
+};
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, matchDispatchToProps)(Home);

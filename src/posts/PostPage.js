@@ -37,7 +37,14 @@ class PostPage extends Component {
       searchValue: e.target.value
     });
   };
-
+  showPost = id => {
+    console.log(id);
+    this.props.dispatch({
+      type: "SHOW_POST",
+      payload: id
+    });
+    this.props.router.push("posts-details");
+  };
   render() {
     return (
       <div>
@@ -53,6 +60,7 @@ class PostPage extends Component {
           className="form-control"
         />
         <PostList
+          showPost={this.showPost}
           valueToFilter={this.state.searchValue}
           posts={this.props.posts}
           removeFromList={this.removeFromStore}
@@ -64,7 +72,8 @@ class PostPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    posts: state.posts.postCollection
+    posts: state.posts.postCollection,
+    postToShow: state.posts.postToShow
   };
 };
 

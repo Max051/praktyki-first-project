@@ -3,7 +3,7 @@ import Button from "../user-interface/Button";
 import AlertButton from "../user-interface/AlertButton";
 import styled from "styled-components";
 
-export default class Post extends Component {
+class Post extends Component {
   onRemove = () => this.props.removePost(this.props.post.id);
   render() {
     return (
@@ -29,6 +29,10 @@ export default class Post extends Component {
         <span>
           {this.props.post.timestamp}
         </span>
+        {this.props.post.id}
+        <button onClick={() => this.props.showPost(this.props.post.id)}>
+          Show Post
+        </button>
       </StyledPost>
     );
   }
@@ -47,3 +51,5 @@ const StyledButton = styled(Button)`
             border: none;
             align-self: flex-end;
 `;
+
+export default Post;

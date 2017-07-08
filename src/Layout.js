@@ -42,6 +42,9 @@ class Layout extends Component {
               <Link to="login">Login</Link>
             </li>
             <li>
+              <Link to="sign_up">Sign Up</Link>
+            </li>
+            <li>
               {" "}{" "}
               {this.props.session.login
                 ? this.props.session.login

@@ -1,14 +1,14 @@
-const session = (state = {} , action) => {
+const session = (state = {}, action) => {
   switch (action.type) {
-    case 'Login':
+    case "LOGIN":
       return {
-        login: action.data.login,
-        password: action.data.password
-      }
-    case 'Logout':
-      return {}
+        email: action.data.login,
+        token: action.data.token
+      };
+    case "Logout":
+      return { email: null, token: null };
     default:
-      return state
+      return state;
   }
-}
-export default session
+};
+export default session;
