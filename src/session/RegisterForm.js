@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router";
+import styled from "styled-components";
+
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
@@ -51,35 +53,42 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <form className="form-group">
-          <input
+          <h3>Register:</h3>
+          <StyledInput
             className="form-control"
             type="email"
             placeholder="Email"
             value={this.state.login}
             onChange={this.login}
           />{" "}
-          <input
+          <StyledInput
             className="form-control"
             placeholder="Password"
             onChange={this.password}
             type="password"
             value={this.state.password}
           />{" "}
-          <input
+          <StyledInput
             className="form-control"
             placeholder="Reapeat Password"
             type="password"
             onChange={this.repeatPassword}
             value={this.state.confirmPassword}
           />{" "}
-          <button onClick={this.onSubmit}> Submit </button>{" "}
+          <button
+            style={{ marginTop: "10px" }}
+            className="btn btn-default"
+            onClick={this.onSubmit}
+          >
+            {" "}Submit{" "}
+          </button>{" "}
         </form>{" "}
         {this.state.registered}
       </div>
     );
   }
 }
-
+const StyledInput = styled.input`margin-top: 10px;`;
 export default RegisterForm;

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Layout extends Component {
   constructor(props) {
@@ -38,17 +39,21 @@ class Layout extends Component {
             <li>
               <Link to="posts-form">Post Form</Link>
             </li>
+
             <li>
               <Link to="login">Login</Link>
             </li>
+
             <li>
               <Link to="sign_up">Sign Up</Link>
             </li>
-            <li>
-              {" "}{" "}
-              {this.props.session.login
-                ? this.props.session.login
-                : "Please Log In"}
+            <li style={{ float: "right" }}>
+              {" "}<a>
+                {" "} {console.log(this.props)}
+                {this.props.session.email
+                  ? this.props.session.email
+                  : "Please Log In"}
+              </a>
             </li>
           </ul>
         </nav>
@@ -69,5 +74,8 @@ const mapStateToProps = state => {
     posts: state.posts.postCollection
   };
 };
-
+Layout.propTypes = {
+  session: PropTypes.object.isRequired,
+  posts: PropTypes.array.isRequired
+};
 export default connect(mapStateToProps)(Layout);

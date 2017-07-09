@@ -2,7 +2,7 @@ const session = (state = {}, action) => {
   switch (action.type) {
     case "LOGIN":
       return {
-        email: action.data.login,
+        email: action.data.email,
         token: action.data.token
       };
     case "Logout":

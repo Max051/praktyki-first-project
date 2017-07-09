@@ -13,7 +13,7 @@ const posts = (state = InitalState, action) => {
           {
             title: action.data.title,
             content: action.data.content,
-            timestamp: d.toDateString,
+            timestamp: d.toDateString(),
             id: action.data.id
           }
         ],
@@ -22,13 +22,9 @@ const posts = (state = InitalState, action) => {
 
     case "REMOVE POST":
       const newPostCollection = state.postCollection.filter(el => {
-        console.log(action.idToRemove);
-        console.log(el.id);
         return el.id !== action.idToRemove;
       });
 
-      console.log(action.idToRemove);
-      //    console.log(newpostCollection[0].id)
       return {
         postCollection: newPostCollection,
         postToShow: state.postToShow
@@ -40,6 +36,11 @@ const posts = (state = InitalState, action) => {
       return {
         postCollection: state.postCollection,
         postToShow: post
+      };
+    case "REMOVE_SHOW_POST":
+      return {
+        postCollection: state.postCollection,
+        postToShow: {}
       };
     default:
       return state;

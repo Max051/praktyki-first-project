@@ -5,6 +5,17 @@ import styled from "styled-components";
 
 class Post extends Component {
   onRemove = () => this.props.removePost(this.props.post.id);
+  ShowPostButton = () => {
+    if (this.props.showPost) {
+      return (
+        <button onClick={() => this.props.showPost(this.props.post.id)}>
+          Show Post
+        </button>
+      );
+    } else {
+      return false;
+    }
+  };
   render() {
     return (
       <StyledPost>
@@ -30,9 +41,7 @@ class Post extends Component {
           {this.props.post.timestamp}
         </span>
         {this.props.post.id}
-        <button onClick={() => this.props.showPost(this.props.post.id)}>
-          Show Post
-        </button>
+        {this.ShowPostButton()}
       </StyledPost>
     );
   }

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Post from "./Post";
+import PropTypes from "prop-types";
+
 export default class PostList extends Component {
   filterMap() {
     const posts = this.props.posts;
@@ -28,3 +30,6 @@ export default class PostList extends Component {
     );
   }
 }
+PostList.propTypes = {
+  valueToFilter: PropTypes.string
+};

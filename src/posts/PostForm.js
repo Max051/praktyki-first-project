@@ -10,7 +10,7 @@ class PostForm extends Component {
     this.state = {
       title: "",
       content: "",
-      id: 0
+      id: props.lastPostId
     };
   }
   updateName = e => {
@@ -88,10 +88,4 @@ class PostForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts.postCollection
-  };
-};
-
-export default connect(mapStateToProps)(PostForm);
+export default PostForm;

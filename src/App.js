@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import PropTypes from "prop-types";
 import { Router, Route, IndexRoute, Link, hashHistory } from "react-router";
 import PostsDetails from "./posts/PostsDetails";
 

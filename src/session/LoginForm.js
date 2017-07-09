@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import axios from "axios";
 import { bindActionCreators } from "redux";
+import styled from "styled-components";
 
 import { Login, Logout } from "../actions/sessioActions";
 
@@ -36,6 +37,7 @@ class LoginForm extends Component {
         }
       })
       .then(respone => {
+        console.log(respone);
         this.props.Login(respone);
         this.props.router.push("posts");
       })
@@ -51,26 +53,36 @@ class LoginForm extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="container">
+        <h3>Login:</h3>
         <form className="form-group">
-          <input
+          <StyledInput
             className="form-control"
             type="email"
             placeholder="Email"
             onChange={this.login}
             value={this.state.login}
           />{" "}
-          <input
+          <StyledInput
             className="form-control"
             placeholder="Password"
             type="password"
             onChange={this.password}
             value={this.state.password}
           />{" "}
-          <button onClick={this.onSubmit}> Submit </button>{" "}
+          <button
+            style={{ marginTop: "10px" }}
+            className="btn btn-default"
+            onClick={this.onSubmit}
+          >
+            {" "}Submit{" "}
+          </button>{" "}
         </form>{" "}
-        {this.props.session.login
-          ? <button onClick={this.onLogout}> Logut </button>
+        {console.log(this.props.session)}
+        {this.props.session.token
+          ? <button className="btn btn-default" onClick={this.onLogout}>
+              {" "}Logut{" "}
+            </button>
           : false}{" "}
         {this.state.error ? "Server Error" : false}{" "}
       </div>
@@ -85,4 +97,6 @@ const mapStateToProps = state => {
 const matchDispatchToProps = dispatch => {
   return bindActionCreators({ Login: Login, Logout: Logout }, dispatch);
 };
+const StyledInput = styled.input`margin-top: 10px;`;
+
 export default connect(mapStateToProps, matchDispatchToProps)(LoginForm);

@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import PostList from "./PostsList";
 import PostForm from "./PostForm";
 import styled from "styled-components";
+import { bindActionCreators } from "redux";
+import {
+  addPostStore,
+  removeFromStore,
+  showPost
+} from "../actions/postsActions";
 import { connect } from "react-redux";
 
 class PostPage extends Component {
@@ -12,25 +18,12 @@ class PostPage extends Component {
       posts: [],
       searchValue: ""
     };
-    this.addPost = this.addPost.bind(this);
   }
   addPostStore = post => {
-    return this.props.dispatch({ type: "ADD POST", data: post });
+    this.props.addPostStore(post);
   };
   removeFromStore = postId => {
-    return this.props.dispatch({
-      type: "REMOVE POST",
-      idToRemove: postId
-    });
-  };
-  addPost = post => {
-    const d = new Date().toDateString();
-    this.setState({ posts: [...this.state.posts, { ...post, timestamp: d }] });
-  };
-  removePostFromPosts = e => {
-    this.setState({
-      posts: this.state.posts.filter(el => el.id != e.target.id)
-    });
+    this.props.removeFromStore(postId);
   };
   search = e => {
     this.setState({
@@ -38,17 +31,18 @@ class PostPage extends Component {
     });
   };
   showPost = id => {
-    console.log(id);
-    this.props.dispatch({
-      type: "SHOW_POST",
-      payload: id
-    });
+    this.props.showPost(id);
     this.props.router.push("posts-details");
   };
   render() {
     return (
       <div>
         <PostForm
+          lastPostId={
+            this.props.posts[this.props.posts.length - 1]
+              ? this.props.posts[this.props.posts.length - 1].id + 1
+              : 0
+          }
           onSubmit={this.addPost}
           onAddpost={this.addPostStore}
           onNewPost={this.addToCounter}
@@ -76,7 +70,17 @@ const mapStateToProps = state => {
     postToShow: state.posts.postToShow
   };
 };
+const matchDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      addPostStore: addPostStore,
+      showPost: showPost,
+      removeFromStore: removeFromStore
+    },
+    dispatch
+  );
+};
 
 const StyledSearchBar = styled.input`margin-bottom: 10px;`;
 
-export default connect(mapStateToProps)(PostPage);
+export default connect(mapStateToProps, matchDispatchToProps)(PostPage);
