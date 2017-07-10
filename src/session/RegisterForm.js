@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router";
 import styled from "styled-components";
+import apiClient from "../lib/api-client";
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -33,12 +34,11 @@ class RegisterForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    axios
-      .post("https://praktyki-react.herokuapp.com/api/v1/registrations", {
+    apiClient
+      .post("api/v1/registrations", {
         user: { email: this.state.email, password: this.state.password }
       })
       .then(respone => {
-        console.log(respone);
         this.setState({
           registered: "Succes"
         });

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Post from "./Post";
 import PropTypes from "prop-types";
-
+import _ from "lodash";
 export default class PostList extends Component {
   filterMap() {
-    const posts = this.props.posts;
-    console.log(posts);
+    const posts = _.orderBy(this.props.posts, ["id"]);
+
     if (this.props.valueToFilter.length > 0) {
       return posts.filter(el => el.title.includes(this.props.valueToFilter));
     }

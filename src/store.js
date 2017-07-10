@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   session: session
 });
 
-const enhencer = compose(persistState());
+const enhencer = compose(persistState("session"));
 
 const store = createStore(rootReducer, enhencer);
 

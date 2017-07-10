@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import axios from "axios";
 import { bindActionCreators } from "redux";
 import styled from "styled-components";
+import apiClient from "../lib/api-client";
 
 import { Login, Logout } from "../actions/sessioActions";
 
@@ -29,16 +30,15 @@ class LoginForm extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    axios
-      .post("http://praktyki-react.herokuapp.com/api/v1/sessions", {
+    apiClient
+      .post("api/v1/sessions", {
         user: {
           email: this.state.login,
           password: this.state.password
         }
       })
       .then(respone => {
-        console.log(respone);
-        this.props.Login(respone);
+        this.props.Login(respone.data.data);
         this.props.router.push("posts");
       })
       //   this.props.router.push("posts");

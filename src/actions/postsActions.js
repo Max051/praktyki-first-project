@@ -14,3 +14,7 @@ export const showPost = post => {
   };
   // this.props.router.push("posts-details");
 };
+export const fetchPosts = data => {
+  console.log(data);
+  return { type: "FETCH_POSTS", payload: data };
+};

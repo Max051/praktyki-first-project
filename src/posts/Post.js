@@ -35,10 +35,10 @@ class Post extends Component {
             textAlign: "left"
           }}
         >
-          {this.props.post.content}
+          {this.props.post.body}
         </div>
         <span>
-          {this.props.post.timestamp}
+          {this.props.post.created_at}
         </span>
         {this.props.post.id}
         {this.ShowPostButton()}

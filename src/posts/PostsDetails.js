@@ -1,34 +1,29 @@
 import React, { Component } from "react";
 import Post from "./Post";
 import { connect } from "react-redux";
-
+import apiClient from "../lib/api-client";
 class PostsDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      post: {}
+    };
+  }
   removePostFromDetails = () => {
-    this.props.dispatch({
-      type: "REMOVE_SHOW_POST"
-    });
-    // this.props.router.push("posts");
+    this.props.router.push("posts");
   };
-  checkPostToShow = () => {
-    console.log(this.props.postToShow.id);
-    if (this.props.postToShow.id) {
-      return (
-        <Post
-          removePost={this.removePostFromDetails}
-          post={this.props.postToShow}
-        />
-      );
-    } else {
-      return <div>Choose some post</div>;
-    }
-  };
+  componentDidMount() {
+    apiClient
+      .get("example/api/v1/posts/" + this.props.params.id)
+      .then(response => {
+        this.setState({ post: response.data });
+      })
+      .catch(error => {});
+  }
   render() {
-    return this.checkPostToShow();
+    return (
+      <Post removePost={this.removePostFromDetails} post={this.state.post} />
+    );
   }
 }
-const mapStateToProps = state => {
-  return {
-    postToShow: state.posts.postToShow
-  };
-};
-export default connect(mapStateToProps)(PostsDetails);
+export default PostsDetails;

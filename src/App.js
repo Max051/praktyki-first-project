@@ -26,7 +26,7 @@ class App extends Component {
             <Layout>
               <IndexRoute component={Home} />
               <Route path="posts" component={PostPage} />
-              <Route path="posts-details" component={PostsDetails} />
+              <Route path="posts-details/:id" component={PostsDetails} />
               <Route path="posts-form" component={AddPostsPage} />
             </Layout>
           </Route>

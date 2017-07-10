@@ -5,6 +5,13 @@ const InitalState = {
 
 const posts = (state = InitalState, action) => {
   switch (action.type) {
+    case "FETCH_POSTS": {
+      console.log(action.payload);
+      return {
+        ...state,
+        postCollection: action.payload
+      };
+    }
     case "ADD POST":
       const d = new Date();
       return {

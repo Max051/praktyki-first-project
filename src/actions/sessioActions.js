@@ -3,8 +3,9 @@ export const Login = response => {
   return {
     type: "LOGIN",
     data: {
-      email: response.data.data.email,
-      token: response.data.data.auth_token
+      email: response.email,
+      token: response.auth_token,
+      user_id: response.user_id
     }
   };
 };

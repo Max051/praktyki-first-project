@@ -6,9 +6,12 @@ import { bindActionCreators } from "redux";
 import {
   addPostStore,
   removeFromStore,
-  showPost
+  showPost,
+  fetchPosts
 } from "../actions/postsActions";
 import { connect } from "react-redux";
+import axios from "axios";
+import apiClient from "../lib/api-client";
 
 class PostPage extends Component {
   constructor(props) {
@@ -23,7 +26,15 @@ class PostPage extends Component {
     this.props.addPostStore(post);
   };
   removeFromStore = postId => {
-    this.props.removeFromStore(postId);
+    apiClient
+      .delete("example/api/v1/posts/" + postId)
+      .then(response => {
+        this.props.removeFromStore(postId);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    //  this.props.removeFromStore(postId);
   };
   search = e => {
     this.setState({
@@ -31,22 +42,26 @@ class PostPage extends Component {
     });
   };
   showPost = id => {
-    this.props.showPost(id);
-    this.props.router.push("posts-details");
+    // this.props.showPost(id);
+    this.props.router.push("posts-details/" + id);
+    //  this.props.router.push("posts-details");
   };
+
+  componentDidMount() {
+    console.log("aa");
+    apiClient
+      .get("example/api/v1/posts")
+      .then(response => {
+        console.log(response);
+        this.props.fetchPosts(response.data.posts);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
   render() {
     return (
       <div>
-        <PostForm
-          lastPostId={
-            this.props.posts[this.props.posts.length - 1]
-              ? this.props.posts[this.props.posts.length - 1].id + 1
-              : 0
-          }
-          onSubmit={this.addPost}
-          onAddpost={this.addPostStore}
-          onNewPost={this.addToCounter}
-        />
         <StyledSearchBar
           type="text"
           onChange={this.search}
@@ -65,9 +80,11 @@ class PostPage extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     posts: state.posts.postCollection,
-    postToShow: state.posts.postToShow
+    postToShow: state.posts.postToShow,
+    session: state.session
   };
 };
 const matchDispatchToProps = dispatch => {
@@ -75,7 +92,8 @@ const matchDispatchToProps = dispatch => {
     {
       addPostStore: addPostStore,
       showPost: showPost,
-      removeFromStore: removeFromStore
+      removeFromStore: removeFromStore,
+      fetchPosts: fetchPosts
     },
     dispatch
   );

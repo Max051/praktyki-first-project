@@ -35,14 +35,14 @@ class PostForm extends Component {
     //   this.props.onNewPost();
   };
   addPOst = e => {
-    e.preventDefault();
+    //  e.preventDefault();
     this.setState({
       id: this.state.id + 1
     });
     this.props.onAddpost({
       title: this.state.title,
-      content: this.state.content,
-      id: this.state.id
+      content: this.state.content
+      //   id: this.state.id
     });
     //   this.props.onNewPost();
   };
